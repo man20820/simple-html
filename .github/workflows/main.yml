@@ -20,7 +20,7 @@ jobs:
         run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
       - name: sync
         run: |
-          rsync -avz artifact/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/html/tmp/${{ github.event.repository.name }}
+          rsync -avz . ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/html/tmp/${{ github.event.repository.name }}
       - name: deploy
         run: |
           ssh  ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} 'rsync -va /var/www/html/tmp/${{ github.event.repository.name }}/ /var/www/html/simple-html/'
